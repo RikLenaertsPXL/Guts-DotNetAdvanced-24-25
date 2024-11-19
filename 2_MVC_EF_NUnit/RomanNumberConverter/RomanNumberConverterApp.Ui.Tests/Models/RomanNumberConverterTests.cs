@@ -16,7 +16,8 @@ namespace RomanNumberConverterApp.Ui.Tests.Models
         [TestCase(4000)]
         public void Convert_ValueIsNotBetweenOneAnd3999_ShouldThrowArgumentException(int number)
         {
-            Assert.That(() => _sut.Convert(number), Throws.TypeOf<ArgumentException>());
+            Assert.That(() => _sut.Convert(number), Throws.TypeOf<ArgumentException>().With.Message.EqualTo("Out of Roman range (1-3999)"));
+
         }
 
         [TestCase(1986, "MCMLXXXVI")]
