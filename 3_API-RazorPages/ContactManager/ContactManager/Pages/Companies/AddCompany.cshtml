@@ -1,7 +1,46 @@
-﻿@{
+﻿@page
+@model ContactManager.Pages.Companies.AddCompanyModel
+
+@{
     ViewData["Title"] = "Add Company";
 }
 
-<!DOCTYPE html>
-
 <h1>@ViewData["Title"]</h1>
+
+<div asp-validation-summary="All" class="validation-summary-valid text-danger"></div>
+
+<form method="post" role="form">
+    <div class="form-group">
+        <label for="Company_Name" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input type="text" name="Company.Name" class="form-control" id="Company_Name" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Company_Address" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input type="text" name="Company.Address" class="form-control" id="Company_Address" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Company_Zip" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input type="text" name="Company.Zip" class="form-control" id="Company_Zip" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Company_City" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input type="text" name="Company.City" class="form-control" id="Company_City" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+    <button type="submit">Submit</button>
+</form>

@@ -6,14 +6,21 @@ namespace ContactManager.Infrastructure
 {
     internal class ContactDbRepository:IContactRepository
     {
+        private readonly ContactManagerDbContext _context;
+
+        public ContactDbRepository(ContactManagerDbContext contactManagerDbContext)
+        {
+            _context = contactManagerDbContext;
+        }
+
         public IList<Contact> GetAllContacts()
         {
-            throw new NotImplementedException();
-
+            return _context.Contacts.ToList();
         }
         public void AddContact(Contact contact)
         {
-            throw new NotImplementedException();
+            _context.Contacts.Add(contact);
+            _context.SaveChanges();
         }
     }
 }

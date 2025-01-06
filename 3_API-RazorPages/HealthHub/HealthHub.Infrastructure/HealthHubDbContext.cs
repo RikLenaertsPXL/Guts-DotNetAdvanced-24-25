@@ -1,5 +1,6 @@
 ﻿using HealthHub.Domain;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace HealthHub.Infrastructure
 {
@@ -46,6 +47,15 @@ namespace HealthHub.Infrastructure
             { 
                 new Appointment() {Id = 9999,DoctorId=1, AppointmentDate=DateTime.Today, PatientNationalNumber="111111", Reason="reason"}
             };
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Doctor>().HasData(GetDoctors());
+            modelBuilder.Entity<Specialty>().HasData(GetSpecialties());
+            modelBuilder.Entity<Appointment>().HasData(GetAppointments());
         }
 
     }

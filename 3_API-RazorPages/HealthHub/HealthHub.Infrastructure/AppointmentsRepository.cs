@@ -1,52 +1,61 @@
 ﻿using HealthHub.AppLogic;
 using HealthHub.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthHub.Infrastructure
 {
     internal class AppointmentsRepository: IAppointmentsRepository
     {
+        private readonly HealthHubDbContext _context;
+
         public AppointmentsRepository(HealthHubDbContext context)
         {
+            _context = context;
         }
 
         public IList<Appointment> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Appointments.ToList();
         }
 
         public Appointment? GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Appointments.FirstOrDefault(a => a.Id == id);
         }
 
         public void Add(Appointment appointment)
         {
-            throw new NotImplementedException();
+            _context.Appointments.Add(appointment);
+            _context.SaveChanges();
         }
 
         public void Update(Appointment appointment)
         {
-            throw new NotImplementedException();
+            _context.Appointments.Attach(appointment);
+            _context.Entry(appointment).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public void Delete(Appointment appointment)
         {
-            throw new NotImplementedException();
+            _context.Appointments.Remove(appointment);
+            _context.SaveChanges();
         }
 
         public IList<Appointment> GetAppointmentsForDoctor(int doctorId)
         {
-            throw new NotImplementedException();
+            return _context.Appointments.Where(a => a.DoctorId == doctorId).ToList();
         }
 
         public IList<Appointment> GetAppointmentsForPatient(string patientNationalNumber)
         {
-            throw new NotImplementedException();
+            return _context.Appointments.Where(a => a.PatientNationalNumber == patientNationalNumber).ToList();
         }
 
         public IList<Appointment> GetUpcomingAppointments(int daysAhead)
         {
-            throw new NotImplementedException();
+            DateTime latestDate = DateTime.Now.AddDays(daysAhead);
+            return _context.Appointments.Where(a => a.AppointmentDate <= latestDate && a.AppointmentDate > DateTime.Now).ToList();
         }
     }
 }

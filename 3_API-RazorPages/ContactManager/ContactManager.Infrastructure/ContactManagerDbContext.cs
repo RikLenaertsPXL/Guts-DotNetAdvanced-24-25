@@ -1,6 +1,7 @@
 ﻿
 using ContactManager.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace ContactManager.Infrastructure
 {
@@ -9,6 +10,11 @@ namespace ContactManager.Infrastructure
         public ContactManagerDbContext(DbContextOptions<ContactManagerDbContext> options) : base(options)
         {
         }
+
+        public ContactManagerDbContext() { }
+
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         private IList<Company> GetCompanies()
         {
@@ -38,6 +44,14 @@ namespace ContactManager.Infrastructure
                     new Contact() { Id=2, Name = "Smith", FirstName = "Jane", Email = "jane@example.com", Phone = "555-5678", CompanyId = 1 },
                     new Contact() { Id=3, Name = "Johnson", FirstName = "Alice", Email = "alice@example.com", Phone = "555-4321", CompanyId = 2 }
                 };
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Company>().HasData(GetCompanies());
+            modelBuilder.Entity<Contact>().HasData(GetContacts());
         }
     }
 }

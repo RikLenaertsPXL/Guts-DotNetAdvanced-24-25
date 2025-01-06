@@ -1,1 +1,50 @@
-﻿<h2>Add Contact</h2>
+﻿@page
+@model ContactManager.Pages.Contacts.AddContactModel
+
+<h2>Add Contact</h2>
+
+<div asp-validation-summary="All" class="validation-summary-valid text-danger"></div>
+
+<form method="post" role="form">
+    <div class="form-group">
+        <label for="Contact_FirstName" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input type="text" name="Contact.FirstName" class="form-control" id="Contact_FirstName" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Contact_Name" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input type="text" name="Contact.Name" class="form-control" id="Contact_Name" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Contact_Email" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input type="text" name="Contact.Email" class="form-control" id="Contact_Email" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Contact_Phone" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input type="text" name="Contact.Phone" class="form-control" id="Contact_Phone" />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Company_City" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <select asp-for="Company.City" asp-items="CompanySelectListItems" class="form-control"></select>
+            <span class="text-danger"></span>
+        </div>
+    </div>
+
+    <button type="submit">Submit</button>
+</form>

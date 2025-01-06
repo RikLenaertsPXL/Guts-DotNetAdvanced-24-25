@@ -11,14 +11,22 @@ namespace ContactManager.Infrastructure
 {
     internal class CompanyDbRepository : ICompanyRepository
     {
+        private readonly ContactManagerDbContext _context;
+
+        public CompanyDbRepository(ContactManagerDbContext contactManagerDbContext)
+        {
+            _context = contactManagerDbContext;
+        }
+
         public void AddCompany(Company company)
         {
-            throw new NotImplementedException();
+            _context.Companies.Add(company);
+            _context.SaveChanges();
         }
 
         public IList<Company> GetAllCompanies()
         {
-            throw new NotImplementedException();
+            return _context.Companies.ToList();
         }
     }
 }

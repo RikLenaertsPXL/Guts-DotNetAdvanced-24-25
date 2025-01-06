@@ -6,17 +6,19 @@ using ContactManager.AppLogic.Contracts;
 
 namespace ContactManager.Pages
 {
-    public class IndexModel
+    public class IndexModel : PageModel
     {
         public IList<Contact> Contacts { get; set; }
+        private readonly IContactRepository _contactRepository;
 
         public IndexModel(IContactRepository contactRepository)
         {
+            _contactRepository = contactRepository;
         }
 
         public void OnGet()
         {
-            throw new NotImplementedException();
+            Contacts = _contactRepository.GetAllContacts();
         }
     }
 }

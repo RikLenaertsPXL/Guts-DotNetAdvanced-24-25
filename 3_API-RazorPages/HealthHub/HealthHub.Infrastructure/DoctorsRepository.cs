@@ -6,38 +6,46 @@ namespace HealthHub.Infrastructure
 {
     internal class DoctorsRepository : IDoctorsRepository
     {
+        private readonly HealthHubDbContext _context;
+
         public DoctorsRepository(HealthHubDbContext context)
         {
+            _context = context;
         }
 
         public IList<Doctor> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Doctors.ToList();
         }
 
         public Doctor? GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Doctors.FirstOrDefault(a => a.Id == id);
         }
 
         public IList<Doctor> GetDoctorsBySpecialty(int specialtyId)
         {
-            throw new NotImplementedException();
+            return _context.Doctors.Where(a => a.SpecialtyId == specialtyId).ToList();
         }
 
         public void Add(Doctor doctor)
         {
-            throw new NotImplementedException();
+            _context.Doctors.Add(doctor);
+            _context.SaveChanges();
         }
 
         public void Update(Doctor doctor)
         {
-            throw new NotImplementedException();
+            _context.Doctors.Attach(doctor);
+            _context.Entry(doctor).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Doctor doctor = GetById(id)!;
+            _context.Doctors.Remove(doctor);
+            _context.SaveChanges();
         }
     }
 }
