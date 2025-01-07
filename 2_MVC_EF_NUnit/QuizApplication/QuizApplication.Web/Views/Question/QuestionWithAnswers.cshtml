@@ -1,23 +1,30 @@
-﻿<div class="text-center">
-    <h1>Show the question here (from the viewmodel)</h1>
-    @* Make this link work *@
-    <a>Back</a>
+﻿@model QuestionViewModel
+<div class="text-center">
+    <h1>@Model.Question.QuestionString</h1>
+    <a href="/Question/QuestionsInCategory/@Model.Question.CategoryId">Back</a>
 
 </div>
 <hr />
 <div class="row">
-
-    @* If an answer is correct: *@
-    <a class="col col-sm-6 text-reset text-decoration-none" onclick="$(this).children()[0].style.backgroundColor='green';">
-        <div class="card p-5 text-center">
-            Answer text of correct answer
-        </div>
-    </a>
-
-    @* else: *@
-    <a class="col col-sm-6  text-reset text-decoration-none" onclick="$(this).children()[0].style.backgroundColor='red';">
-        <div class="card p-5 text-center">
-            Answer text wrong answer
-        </div>
-    </a>
+    @{
+        foreach (var a in Model.Question.Answers) 
+        {
+            if (a.IsCorrect) 
+            {
+                <a class="col col-sm-6 text-reset text-decoration-none" onclick="$(this).children()[0].style.backgroundColor='green';">
+                    <div class="card p-5 text-center">
+                        @a.AnswerText;
+                    </div>
+                </a>
+            }
+            else
+            {
+                <a class="col col-sm-6  text-reset text-decoration-none" onclick="$(this).children()[0].style.backgroundColor='red';">
+                    <div class="card p-5 text-center">
+                        @a.AnswerText;
+                    </div>
+                </a>
+            }
+        }
+    }
 </div>

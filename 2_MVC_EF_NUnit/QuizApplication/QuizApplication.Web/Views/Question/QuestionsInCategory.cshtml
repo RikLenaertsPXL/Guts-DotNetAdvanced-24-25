@@ -1,17 +1,20 @@
-﻿<div class="text-center">
+﻿@model List<QuizApplication.Domain.Question>
+<div class="text-center">
     <h1 class="display-4">Pick a question:</h1>
-    @* make this link work: *@
-    <a>Back</a>
+    <a href="/Question/Index">Back</a>
 </div>
 <hr />
 
 <div class="row">
 
-
-    <a class="text-reset text-decoration-none">
-        <div class="col card m-1 p-5">
-            Show the questions in this type of card, and make sure the &lt;a&gt; tags work.
-        </div>
-    </a>
-
+    @{
+        foreach(var question in @Model)
+        {
+            <a class="text-reset text-decoration-none" href="/Question/QuestionWithAnswers/@question.Id">
+                <div class="col card m-1 p-5">
+                    @question.QuestionString
+                </div>
+            </a>
+        }
+    }
 </div>

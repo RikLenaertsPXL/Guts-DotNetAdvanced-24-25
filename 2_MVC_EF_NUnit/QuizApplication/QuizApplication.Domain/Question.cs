@@ -9,9 +9,15 @@ namespace QuizApplication.Domain
         /* Please leave this MaxLength attribute on the QuestionString property, 
          * the GUTS tests will fail if removed */
         [MaxLength(100)]
-        public string QuestionString;
+        public string QuestionString { get; set; }
 
-        public int CategoryId;
-        public IList<Answer> Answers;
+        public int CategoryId { get; set; }
+        public IList<Answer> Answers { get; set; }
+
+        public Question()
+        {
+            Answers = new List<Answer>();
+            QuestionString = "";
+        }
     }
 }

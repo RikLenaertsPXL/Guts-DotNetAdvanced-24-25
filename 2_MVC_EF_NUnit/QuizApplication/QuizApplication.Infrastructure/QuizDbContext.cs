@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace QuizApplication.Infrastructure
     internal class QuizDbContext : DbContext
     {
         public DbSet<Question> Questions { get; set; } = null!; //with '!' we are telling the compiler that we are sure that this property will never be null (the base class 'DbContext' takes care of this)
+        public DbSet<Answer> Answers { get; set; } = null!;
 
         public QuizDbContext(DbContextOptions<QuizDbContext> options) : base(options)
         {
@@ -21,6 +23,8 @@ namespace QuizApplication.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Answer>().HasData(GetSeedAnswers());
+            modelBuilder.Entity<Question>().HasData(GetSeedQuestions());
         }
 
         private IList<Answer> GetSeedAnswers()

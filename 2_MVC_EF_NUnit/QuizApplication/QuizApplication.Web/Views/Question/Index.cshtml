@@ -1,10 +1,17 @@
-﻿<div class="text-center">
+﻿@model List<QuizApplication.Domain.Category>
+<div class="text-center">
     <h1 class="display-4">Choose a category:</h1>
 </div>
 <div class="row">
-    <a class="col col-sm-6 text-decoration-none text-reset">
-        <div class="card m-2 p-5 text-center text-black">
-            <h4>Show the categories in this type of cards</h4>
-        </div>
-    </a>
+    @{
+        foreach(var category in @Model)
+        {
+            <a class="col col-sm-6 text-decoration-none text-reset" href="/Question/QuestionsInCategory/@category.Id">
+                <div class="card m-2 p-5 text-center text-black">
+                    <h4>@category.Name</h4>
+                </div>
+            </a>
+        }
+    }
+    
 </div>
